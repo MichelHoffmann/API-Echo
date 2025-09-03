@@ -1,0 +1,21 @@
+{
+  "overrides": [
+    {
+      "files": ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+      "plugins": ["js"],
+      "extends": ["eslint:recommended"],
+      "env": {
+        "node": true,
+        "es2021": true
+      },
+      "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+      }
+    },
+    {
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    }
+  ]
+}
