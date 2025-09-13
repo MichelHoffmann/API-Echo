@@ -40,7 +40,6 @@ export class Post {
       throw new Error("Comment must have a creation date");
     }
     this.props.comments.push(commentProps);
-    return commentProps;
   }
 
   deleteComment(commentId: string, userId: string) {
@@ -75,7 +74,6 @@ export class Post {
       createdAt: new Date(),
     };
     this.props.likes.push(newLike);
-    return newLike;
   }
 
   removeLikePost(userId: string) {

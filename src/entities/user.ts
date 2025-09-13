@@ -46,7 +46,11 @@ export class User {
     if (!postId) {
       throw new Error("Post id is required");
     }
-    if (this.props.id !== this.props.id) {
+    const post = this.props.posts.find((post) => post.id === postId)
+    if (!post) {
+      throw new Error("This post doesn't exist")
+    }
+    if (this.props.id !== post.authorId) {
       throw new Error("You can only delete your own posts");
     }
     this.props.posts = this.props.posts.filter((post) => post.id !== postId);
