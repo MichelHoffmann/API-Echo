@@ -16,11 +16,12 @@ export class User {
     if (!props.password || props.password.length < 6) {
       throw new Error("Password must be at least 6 characters long");
     }
-    return new User({
+    const newUser = {
       ...props,
-      posts: props.posts || [],
-      friendIds: props.friendIds || [],
-    });
+      posts: [],
+      friendIds: [],
+    };
+    return new User(newUser);
   }
 
   storePost(postProps: PostPropsInterface) {
@@ -39,46 +40,46 @@ export class User {
     if (!postProps.createdAt) {
       throw new Error("Post must have a creation date");
     }
-    this.props.posts.push(postProps);
+    this.props.posts?.push(postProps);
   }
 
   deletePost(postId: string) {
     if (!postId) {
       throw new Error("Post id is required");
     }
-    const post = this.props.posts.find((post) => post.id === postId)
+    const post = this.props.posts?.find((post) => post.id === postId);
     if (!post) {
-      throw new Error("This post doesn't exist")
+      throw new Error("This post doesn't exist");
     }
     if (this.props.id !== post.authorId) {
       throw new Error("You can only delete your own posts");
     }
-    this.props.posts = this.props.posts.filter((post) => post.id !== postId);
+    this.props.posts! = this.props.posts!.filter((post) => post.id !== postId);
   }
 
   getAllPosts() {
-    return [...this.props.posts];
+    return [...this.props.posts!];
   }
 
   addFriend(friendId: string) {
     if (!friendId) {
       throw new Error("Friend id is required");
     }
-    const isAlreadyFriend = this.props.friendIds.includes(friendId);
+    const isAlreadyFriend = this.props.friendIds?.includes(friendId);
     if (isAlreadyFriend) {
       throw new Error("This user is already your friend");
     }
-    this.props.friendIds.push(friendId);
+    this.props.friendIds!.push(friendId);
   }
 
   removeFriend(friendId: string) {
     if (!friendId) {
       throw new Error("Friend id is required");
     }
-    const isFriend = this.props.friendIds.includes(friendId);
+    const isFriend = this.props.friendIds!.includes(friendId);
     if (!isFriend) {
       throw new Error("This user is not your friend");
     }
-    this.props.friendIds = this.props.friendIds.filter((id) => id !== friendId);
+    this.props.friendIds = this.props.friendIds!.filter((id) => id !== friendId);
   }
 }

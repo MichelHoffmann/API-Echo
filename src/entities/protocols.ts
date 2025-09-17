@@ -3,8 +3,8 @@ export interface UserPropsInterface {
   name: string;
   email: string;
   password: string;
-  posts: PostPropsInterface[];
-  friendIds: string[];
+  posts?: PostPropsInterface[];
+  friendIds?: string[];
 }
 
 export interface PostPropsInterface {
