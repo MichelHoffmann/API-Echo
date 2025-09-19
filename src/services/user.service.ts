@@ -1,10 +1,16 @@
 import { User } from "../entities/user.js";
-import type { UserRepository } from "../repositories/user.repository.js";
+import {
+  UserRepository,
+  type IUserRepository,
+} from "../repositories/user.repository.js";
 import { userSchema } from "../schemas/zod.schema.js";
 
-export class UserServicer {
-  private constructor(readonly userRepository: UserRepository) {}
+export interface IUserService {
+  createUser(name: string, email:string, password: string): Promise<User>;
+}
 
+export class UserService {
+  constructor(private userRepository: IUserRepository) {}
   async createUser(name: string, email: string, password: string) {
     const hasErrorInShema = userSchema.safeParse({ name, email, password });
 
@@ -15,12 +21,12 @@ export class UserServicer {
     if (userAlreadyExists) {
       throw new Error("This user already exist!");
     }
-    const user = User.create({
+    const user = {
       id: crypto.randomUUID(),
       name,
       email,
       password,
-    });
+    }
     return await this.userRepository.create(user);
   }
 }

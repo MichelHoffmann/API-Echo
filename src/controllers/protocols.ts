@@ -1,11 +1,8 @@
-import type { User } from "../../src/models/user.js";
+import type { Request, Response } from 'express'
 
 export interface IUsersController {
-  index(): Promise<User[]>; //lista todos os usuários
+  store(req: Request, res: Response): void; //cria um novo usuário
+  // index(): Promise<User[]>; //lista todos os usuários
   // show(): Promise<User | null>; //lista um usuário específico
-  // create(): Promise<User>; //cria um novo usuário
-}
-
-export interface IUsersRepository {
-  getUsers(): Promise<User[]>;
+  // update(): Promise<User | null>; //atualiza um usuário existente
 }
