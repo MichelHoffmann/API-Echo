@@ -10,6 +10,7 @@ export class JwtService {
     return token;
   }
 
-  // static verify(token: string) {
-  //   return jwt.verify(token, JwtService.secret);
+  static verify(token: string) {
+    return jwt.verify(token, this.secretKey)
+  }
 }
